@@ -11,7 +11,6 @@ module.exports = {
 
         try {
             const bookings = await Booking.find()
-            console.log(bookings)
             return bookings.map(booking => transformBooking(booking))
         }
         catch(err) {
