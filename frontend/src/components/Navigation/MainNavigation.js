@@ -16,13 +16,13 @@ const MainNavigation = (props) => {
         <ul>
           {!userInfo.token?
             <Fragment>
-              <li><NavLink to='/auth' activeClassName={classes.ActiveLink}>Authenticate</NavLink></li>
-              <li><NavLink to='/events' activeClassName={classes.ActiveLink}>Eventos</NavLink></li>
+              <li><NavLink to='/auth' exact activeClassName={classes.ActiveLink}>Authenticate</NavLink></li>
+              <li><NavLink to='/events' exact activeClassName={classes.ActiveLink}>Eventos</NavLink></li>
             </Fragment>
             :
             <Fragment>
-              <li><NavLink to='/events' activeClassName={classes.ActiveLink}>Eventos</NavLink></li>
-              <li><NavLink to='/bookings' activeClassName={classes.ActiveLink}>Agendamentos</NavLink></li>
+              <li><NavLink to='/events' exact activeClassName={classes.ActiveLink}>Eventos</NavLink></li>
+              <li><NavLink to='/bookings' exact activeClassName={classes.ActiveLink}>Agendamentos</NavLink></li>
               <li><button onClick={logout}>logout</button></li>
             </Fragment>
           }

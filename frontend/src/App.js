@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, Fragment } from 'react'
+import React, { useContext } from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 
 import MainNavigation from './components/Navigation/MainNavigation'
@@ -16,21 +16,19 @@ const App = (props) => {
     <div className={classes.LayoutContainer}>
       <MainNavigation />
       <main>
-        <Switch>
           {!userInfo.token? 
-            <Fragment>
-              <Route path='/auth' component={AuthPage} />
-              <Route path='/events' component={EventsPage} />
+            <Switch>
+              <Route path='/auth' exact component={AuthPage} />
+              <Route path='/events' exact component={EventsPage} />
               <Redirect to='/auth' />
-            </Fragment>
+            </Switch>
             :
-            <Fragment>
-              <Route path='/events' component={EventsPage} />
-              <Route path='/bookings' component={BookingsPage} />
+            <Switch>
+              <Route path='/events' exact component={EventsPage} />
+              <Route path='/bookings' exact component={BookingsPage} />
               <Redirect to='/events' />
-            </Fragment>
+            </Switch>
           }
-        </Switch>
       </main>
      </div>
   );

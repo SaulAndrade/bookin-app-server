@@ -1,0 +1,43 @@
+.Modal {
+  width: 90%;
+  background: white;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+  position: fixed;
+  top: 20vh;
+  left: 5%;
+  display: none;
+  z-index: 200;
+}
+
+.Modal header {
+  padding: 1rem;
+  background: #5101d1;
+  color: white;
+
+}
+
+.Modal header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.Content {
+  padding: 1rem;
+}
+
+.Actions {
+  padding: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Show {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .Modal {
+    width: 50rem;
+    left: calc((100% - 50rem)/2)
+  }
+}
