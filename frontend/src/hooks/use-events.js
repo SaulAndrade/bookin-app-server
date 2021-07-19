@@ -20,6 +20,9 @@ const useEvents = () => {
           description
           price
           date
+          creator {
+            _id
+          }
         }
       }
     `
@@ -37,6 +40,29 @@ const useEvents = () => {
     }
   },[token])
 
+  const deleteEvent = useCallback(async(eventId) => {
+    const query = `
+      mutation {
+        deleteEvent( eventId:"${eventId}" ) {
+          _id
+          title
+        }
+      }
+    `
+    const response = await sendQuery(query, token)
+
+    if (response.msg !== 'ok'){
+      setError(response.msg)
+      return {data:null, msg:response.msg}
+    }
+    else{
+      const deletedEvent = {...response.data.deleteEvent}
+      setEvents( prevState => prevState.filter( ev => ev._id!==eventId) )
+      setError(null)
+      return {data: deletedEvent, msg:response.msg}
+    }
+  },[token])
+
   const getEvents = useCallback( async () => {
     const query = `
       query {
@@ -46,6 +72,9 @@ const useEvents = () => {
           description
           price
           date
+          creator {
+            _id
+          }
         }
       }
     `
@@ -69,6 +98,7 @@ const useEvents = () => {
     events,
     createEvent,
     getEvents,
+    deleteEvent,
     error
   }
 }

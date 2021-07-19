@@ -9,9 +9,10 @@ import Button from '../components/UI/Button';
 import CreateEventForm from '../components/CreateEventForm/CreateEventForm';
 
 import classes from './EventsPage.module.css'
+import EventsList from '../components/EventsList/EventsList';
 
 const EventsPage = () => {
-  const { createEvent, events } = useEvents()
+  const { createEvent, deleteEvent, events } = useEvents()
   const { userInfo } = useContext(authContext)
   const { token } = userInfo
 
@@ -48,20 +49,8 @@ const EventsPage = () => {
 
   return (
     <React.Fragment>
-      <div> Events:
-        {events.map(ev => <div key={ev._id}>
-              <hr></hr>
-              <p>{ev.title}</p>
-              <p>{ev.description}</p>
-              <p>{ev.price}</p>
-            </div>)}
-      </div>
-    
-      {token?
-        <div className={classes.EventsControl}>
-          <Backdrop show={showModal} clicked={cancelModalHandler}/>
-
-          <Modal 
+      <Backdrop show={showModal} clicked={cancelModalHandler}/>
+      <Modal 
           title='Novo Evento' 
           show={showModal}
           canCancel 
@@ -76,15 +65,19 @@ const EventsPage = () => {
               :
               <div>Loading...</div>
             }
-          </Modal>
+      </Modal>
 
+      {token &&
+        <div className={classes.EventsControl}>
           <p>Compartilhe seus eventos!</p>
-
           <Button onClick={()=>{setShowModal(true)}}>
             Create Event
           </Button>
         </div>
-        :null}
+      }
+
+      <EventsList events={events} deleteEvent={deleteEvent} />
+        
     </React.Fragment>
   );
 };

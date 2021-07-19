@@ -1,0 +1,22 @@
+.Feedback {
+  background: white;
+  width:10rem;
+  font-style: inherit;
+  border: 1px solid #5101d1;
+  color: #5101d1;
+  padding: 0 1rem;
+  position: fixed;
+  top: -5rem;
+  left: calc((100% - 10rem)/2);
+  z-index: 200;
+  text-align: center;
+}
+
+.Show {
+  transform: translateY(6rem);
+  transition: transform 300ms ease-in
+}
+
+.Hide {
+  display: none;
+}

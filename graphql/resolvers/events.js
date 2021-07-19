@@ -40,11 +40,27 @@ module.exports = {
 
             await creator.save()
             return createdEvent
+
         }
         catch(err) {
             console.log(err);
             throw err
         }
-    }
+    },
 
+    deleteEvent: async (args, req) => {
+        if(!req.isAuth){
+            throw new Error('unauthenticated!')
+        }
+
+        const event = await Event.findOne({_id: args.eventId})
+        
+        if(String(event.creator) !== req.userId){ 
+            throw new Error('event belongs to another user!')
+        }
+
+        const result = await Event.deleteOne({_id: args.eventId})
+
+        return transformEvent(event)
+    }
 }

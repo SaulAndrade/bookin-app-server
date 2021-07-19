@@ -6,11 +6,12 @@ const CreateEventForm = ({onSubmit, shouldSubmit, token}) => {
   const form = useRef(null)
   const title = useRef(null)
   const desc = useRef(null)
+  const date = useRef(null)
   const price = useRef(null)
 
   const submitHandler = useCallback(async () => {
-    const date = new Date().toISOString()
-    await onSubmit(title.current.value, desc.current.value, price.current.value, date)
+    const ISOdate = new Date(date.current.value).toISOString()
+    await onSubmit(title.current.value, desc.current.value, price.current.value, ISOdate)
   },[ onSubmit ])
 
   useEffect(()=>{
@@ -30,8 +31,12 @@ const CreateEventForm = ({onSubmit, shouldSubmit, token}) => {
       <input type='text' id='desc' ref={desc}/>
     </div>
     <div className={classes.FormControl}>
+      <label htmlFor='date'>Data</label>
+      <input type='datetime-local' id='date' ref={date}/>
+    </div>
+    <div className={classes.FormControl}>
       <label htmlFor='price'>Preço</label>
-      <input type='text' id='price' ref={price}/>
+      <input type='number' id='price' ref={price}/>
     </div>
   </form>
   );
