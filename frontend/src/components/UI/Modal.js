@@ -4,7 +4,7 @@ import Button from './Button'
 
 import classes from './Modal.module.css'
 
-const Modal = ({show, title, canCancel, canConfirm, onCancel, onConfirm, children}) => {
+const Modal = ({show, title, canCancel, canConfirm, onCancel, onConfirm, confirmText, children}) => {
   const appliedClasses = [classes.Modal]
   show && appliedClasses.push(classes.Show)
 
@@ -21,7 +21,7 @@ const Modal = ({show, title, canCancel, canConfirm, onCancel, onConfirm, childre
 
       <section className={classes.Actions}>
         {canCancel && <Button onClick={onCancel}>cancelar</Button>}
-        {canConfirm && <Button onClick={onConfirm}>confirmar</Button>}
+        {canConfirm && <Button onClick={onConfirm}>{confirmText}</Button>}
       </section>
 
     </div>

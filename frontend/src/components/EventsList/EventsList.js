@@ -16,7 +16,7 @@ const EventsList = ({events, deleteEvent}) => {
           key={ev._id}
           deleteEvent={()=>deleteEvent(ev._id)} 
           title={ev.title} 
-          desc={ev.desc}
+          desc={ev.description}
           date={ev.date}
           price={ev.price}
           owner={userId===ev.creator._id} /> )}
