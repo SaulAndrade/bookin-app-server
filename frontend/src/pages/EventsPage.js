@@ -49,7 +49,6 @@ const EventsPage = () => {
    
   return (
     <React.Fragment>
-      git sync test
       <Backdrop show={showModal} clicked={cancelModalHandler} />
       <Modal
         title="Novo Evento"
