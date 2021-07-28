@@ -53,14 +53,17 @@ module.exports = {
             throw new Error('unauthenticated!')
         }
 
-        const event = await Event.findOne({_id: args.eventId})
-        
-        if(String(event.creator) !== req.userId){ 
-            throw new Error('event belongs to another user!')
+        try{
+            const event = await Event.findOne({_id: args.eventId})
+            
+            if(String(event.creator) !== req.userId){ 
+                throw new Error('event belongs to another user!')
+            }
+            const result = await Event.deleteOne({_id: args.eventId})
+            return transformEvent(event)
         }
-
-        const result = await Event.deleteOne({_id: args.eventId})
-
-        return transformEvent(event)
+        catch(err) {
+            throw err
+        }
     }
 }

@@ -49,6 +49,9 @@ module.exports = {
 
         try {
             const booking = await Booking.findById(args.bookingId).populate('event')
+            if(String(booking.user.id) !== req.userId){ 
+                throw new Error('booked by another user!')
+            }
             const event = transformEvent(booking._doc.event)
             await Booking.deleteOne({_id:args.bookingId})
             return event

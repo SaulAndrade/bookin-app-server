@@ -2,6 +2,7 @@ import React, { useCallback, useState, useContext } from "react";
 import useEvents from "../hooks/use-events";
 
 import authContext from "../context/auth-context";
+import feedbackContext from "../context/feedback-context";
 
 import Backdrop from "../components/UI/Backdrop";
 import Modal from "../components/UI/Modal";
@@ -13,6 +14,7 @@ import classes from "./EventsPage.module.css";
 import EventsList from "../components/EventsList/EventsList";
 
 const EventsPage = () => {
+  const { addMessage } = useContext(feedbackContext)
   const { createEvent, deleteEvent, events } = useEvents();
   const { userInfo } = useContext(authContext);
   const { token } = userInfo;

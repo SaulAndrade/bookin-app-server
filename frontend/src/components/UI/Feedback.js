@@ -1,24 +1,31 @@
-import React, { useEffect, useRef } from 'react';
-import ReactDOM from 'react-dom'
+import React, { useContext, useRef } from "react";
+import ReactDOM from "react-dom";
 
-import classes from './Feedback.module.css'
+import feedbackContext from "../../context/feedback-context";
 
-const Feedback = ({text}) => {
-const element = useRef(null)
+import classes from "./Feedback.module.css";
 
-useEffect(()=>{
-  element.current.classList.add(classes.Show)
-  setTimeout(()=>{
-    element.current.classList.replace(classes.Show, classes.Hide)
-    ReactDOM.unmountComponentAtNode(element.current)
-  },1500) 
-})
+const Feedback = () => {
+  const { messageList } = useContext(feedbackContext);
+  const msgEl = useRef(null)
 
+  let mappedMsgs = null
+  if(messageList) {
+    mappedMsgs =  messageList.map(msgItem => {
+      return (
+        <div className={classes.FeedbackItem} key={'feedback'+msgItem.id} ref={msgEl}>
+          {msgItem.msg}
+        </div>
+      )
+    })
+  }
+  
   return ReactDOM.createPortal(
-    <div className={classes.Feedback} ref={element}>
-      {text}
-    </div>
-  ,document.getElementById('root'))
+    <div className={classes.Feedback}>
+      {mappedMsgs}
+    </div>,
+    document.getElementById("root")
+  );
 };
 
 export default Feedback;
