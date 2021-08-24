@@ -17,7 +17,7 @@ export const FeedbackContextProvider = (props) => {
     addMessage: addMessage,
     messageList: messageList
   }}>
-    <Feedback />
+    <Feedback messageList={messageList}/>
     {props.children}
   </feedbackContext.Provider>
   )

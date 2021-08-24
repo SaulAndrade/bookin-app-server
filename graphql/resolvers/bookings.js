@@ -39,7 +39,6 @@ module.exports = {
             throw err
         }
 
-
     },
 
     cancelBooking: async (args, req) => {

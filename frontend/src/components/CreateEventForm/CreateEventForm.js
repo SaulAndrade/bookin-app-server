@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useCallback } from 'react'
 
 import classes from './CreateEventForm.module.css'
 
-const CreateEventForm = ({onSubmit, shouldSubmit, token}) => {
+const CreateEventForm = ({onSubmit, shouldSubmit}) => {
   const form = useRef(null)
   const title = useRef(null)
   const desc = useRef(null)

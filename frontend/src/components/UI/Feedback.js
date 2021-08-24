@@ -1,12 +1,9 @@
-import React, { useContext, useRef } from "react";
+import React, { useRef } from "react";
 import ReactDOM from "react-dom";
-
-import feedbackContext from "../../context/feedback-context";
 
 import classes from "./Feedback.module.css";
 
-const Feedback = () => {
-  const { messageList } = useContext(feedbackContext);
+const Feedback = ({messageList}) => {
   const msgEl = useRef(null)
 
   let mappedMsgs = null

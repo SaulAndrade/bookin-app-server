@@ -1,8 +1,8 @@
 import React, { useCallback, useState, useContext } from "react";
-import useEvents from "../hooks/use-events";
 
 import authContext from "../context/auth-context";
 import feedbackContext from "../context/feedback-context";
+import infoContext from "../context/info-context";
 
 import Backdrop from "../components/UI/Backdrop";
 import Modal from "../components/UI/Modal";
@@ -14,8 +14,8 @@ import classes from "./EventsPage.module.css";
 import EventsList from "../components/EventsList/EventsList";
 
 const EventsPage = () => {
+  const { createEvent, events } = useContext(infoContext);
   const { addMessage } = useContext(feedbackContext)
-  const { createEvent, deleteEvent, events } = useEvents();
   const { userInfo } = useContext(authContext);
   const { token } = userInfo;
 
@@ -37,14 +37,13 @@ const EventsPage = () => {
       setSubmitCreateEventForm(false);
       setOpLoading(true);
 
-      const result = await createEvent(title, desc, price, date);
-
-      console.log(result.msg);
+      const response = await createEvent(title, desc, price, date, token);
+      addMessage(response.msg)
 
       setOpLoading(false);
       cancelModalHandler();
     },
-    [createEvent]
+    [createEvent, addMessage, token]
   );
    
   return (
@@ -83,7 +82,7 @@ const EventsPage = () => {
       )}
 
       {events.length>0 ? (
-        <EventsList events={events} deleteEvent={deleteEvent} />
+        <EventsList events={events} />
       ) : (
         <Spinner />
       )}

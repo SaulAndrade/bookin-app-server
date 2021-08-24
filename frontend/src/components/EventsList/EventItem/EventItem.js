@@ -6,12 +6,16 @@ import Backdrop from '../../UI/Backdrop';
 
 import classes from './EventItem.module.css'
 
-const EventItem = ({title, desc, price, date, owner, deleteEvent}) => {
+const EventItem = ({eventId, title, desc, price, date, owner, deleteEvent}) => {
   const [showModal, setShowModal] = useState(false);
 
   const cancelModalHandler = () => {
     setShowModal(false);
   };
+
+  const bookEventHandler = () => {
+
+  }
   
   return (
     <li className={classes.EventItem}>
@@ -34,8 +38,10 @@ const EventItem = ({title, desc, price, date, owner, deleteEvent}) => {
         show={showModal}
         canConfirm
         confirmText='agendar'
-        onConfirm={cancelModalHandler}
+        onConfirm={bookEventHandler}
       >
+        <h1>{title}</h1>
+        <h1>R${price} - {new Date(date).toLocaleDateString()}</h1>
         {desc}
       </Modal>
 
