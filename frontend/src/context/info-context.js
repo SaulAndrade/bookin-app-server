@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import useEvents from '../hooks/use-events'
-// import useBookings from '../hooks/use-bookings'
+import useBookings from '../hooks/use-bookings'
 
 const infoContext = React.createContext({
   events: [],
@@ -8,13 +8,14 @@ const infoContext = React.createContext({
   getEvents: ()=>{},
   createEvent: (title, desc, price, date, token)=>{},
   deleteEvent: (eventId, token)=>{},
-  addBooking: (bookingData)=>{},
-  delBooking: (bookingId)=>{}
+  getBookings: (token)=>{},
+  bookEvent: (eventId, token)=>{},
+  cancelBooking: (bookingId, token)=>{}
 })
 
 export const InfoContextProvider = (props) => {
   const { events, getEvents, createEvent, deleteEvent } = useEvents()
-  // const { bookings, addBooking, delBooking } = useBookings()
+  const { bookings, getBookings, bookEvent, cancelBooking } = useBookings()
 
   useEffect(()=>{
     getEvents()
@@ -26,9 +27,10 @@ export const InfoContextProvider = (props) => {
     getEvents: getEvents,
     createEvent: createEvent,
     deleteEvent: deleteEvent,
-    // bookings: bookings,
-    // addBooking: addBooking,
-    // delBooking: delBooking
+    bookings,
+    getBookings,
+    bookEvent,
+    cancelBooking
   }}>
     {props.children}
   </infoContext.Provider>
