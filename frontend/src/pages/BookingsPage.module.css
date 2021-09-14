@@ -1,0 +1,23 @@
+.TabControls{
+  text-align: center;
+  padding: .5rem;
+}
+
+.TabControls button {
+  font: inherit;
+  border: none;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  color: black;
+  padding: .25rem 3rem;
+  cursor: pointer;
+}
+
+.TabControls button:focus {
+  outline: none;
+}
+
+.TabControls button.Active {
+  border-bottom-color: #5101d1;
+  color: #5101d1;
+}

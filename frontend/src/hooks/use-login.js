@@ -68,10 +68,22 @@ const useLogin = () => {
     })
   }
 
- 
+  const createUser = async (email, password) => {
+    const query = `
+      mutation{ 
+        createUser( userInput:{ email:"${email}", password:"${password}" } ){
+          _id
+        } 
+      }`
+  
+    const response = await sendQuery(query)
+    return response
+  }
+
   return {
     login,
     logout,
+    createUser,
     userInfo
   }
 } 

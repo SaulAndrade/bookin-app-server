@@ -1,4 +1,8 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
+
+import infoContext from '../../../context/info-context'
+import authContext from '../../../context/auth-context'
+import feedbackContext from '../../../context/feedback-context'
 
 import Button from '../../UI/Button'
 import Modal from '../../UI/Modal';
@@ -7,14 +11,21 @@ import Backdrop from '../../UI/Backdrop';
 import classes from './EventItem.module.css'
 
 const EventItem = ({eventId, title, desc, price, date, owner, deleteEvent}) => {
+  const { bookEvent } = useContext(infoContext);
+  const { addMessage } = useContext(feedbackContext)
+  const { userInfo } = useContext(authContext);
+  const { token } = userInfo;
+
   const [showModal, setShowModal] = useState(false);
 
   const cancelModalHandler = () => {
     setShowModal(false);
   };
 
-  const bookEventHandler = () => {
-
+  const bookEventHandler = async() => {
+    const booking = await bookEvent(eventId, token)
+    addMessage(booking.msg)
+    cancelModalHandler()
   }
   
   return (
@@ -25,10 +36,10 @@ const EventItem = ({eventId, title, desc, price, date, owner, deleteEvent}) => {
       </div>
       <div>
         <div className={classes.EventActions}>
-          <Button onClick={()=>{setShowModal(true)}}>detalhes</Button>
+          {!owner && <Button onClick={()=>{setShowModal(true)}}>detalhes</Button>}
           {owner && <Button onClick={deleteEvent}>excluir</Button>}
+          {owner && <p>Este evento foi criado por você.</p>}
         </div>
-       {owner && <p>Este evento foi criado por você.</p>}
       </div>
 
       {/* though they are here, will actually render via portal to <div id=root /> */}

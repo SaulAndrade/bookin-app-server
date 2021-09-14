@@ -11,8 +11,10 @@ const useBookings = () => {
         bookEvent( eventId:"${eventId}") {
           _id
           event{
-            _id,
+            _id
             title
+            date
+            price
           }
           user{
             _id
@@ -38,17 +40,9 @@ const useBookings = () => {
     const query = `
       mutation {
         cancelBooking( bookingId:"${bookingId}" ) {
-          _id
-          event{
-            _id,
-            title
-          }
-          user{
             _id
-            email
-          }
-          createdAt
-          updatedAt
+            title
+            date
         }
       }
     `
@@ -69,8 +63,10 @@ const useBookings = () => {
         bookings{
           _id
           event{
-            _id,
+            _id
             title
+            date
+            price
           }
           user{
             _id

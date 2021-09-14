@@ -1,7 +1,8 @@
 const Booking = require('../../models/booking')
 const Event = require('../../models/event')
+const User = require('../../models/users')
 
-const { singleEvent, user, transformBooking } = require ('./merge')
+const { transformBooking, transformEvent } = require ('./merge')
 
 module.exports = {
     bookings: async (args, req) => {
@@ -10,7 +11,7 @@ module.exports = {
         }
 
         try {
-            const bookings = await Booking.find()
+            const bookings = await Booking.find({user: req.userId})
             return bookings.map(booking => transformBooking(booking))
         }
         catch(err) {
@@ -48,7 +49,7 @@ module.exports = {
 
         try {
             const booking = await Booking.findById(args.bookingId).populate('event')
-            if(String(booking.user.id) !== req.userId){ 
+            if(String(booking.user._id) !== req.userId){ 
                 throw new Error('booked by another user!')
             }
             const event = transformEvent(booking._doc.event)
